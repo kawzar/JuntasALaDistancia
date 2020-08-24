@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Plat2Suhail
+  m_Name: Ateroides 2
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
   m_LightmapFlags: 2
@@ -62,9 +62,9 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
     - _GlossMapScale: 1
-    - _Glossiness: 0.316
+    - _Glossiness: 0.721
     - _GlossyReflections: 1
-    - _Metallic: 0.157
+    - _Metallic: 0.685
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -74,5 +74,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.74509805, g: 0.18823527, b: 0.6308998, a: 0.19607843}
-    - _EmissionColor: {r: 0.4433962, g: 0.21561229, b: 0, a: 1}
+    - _Color: {r: 0.74509805, g: 0.18823527, b: 0.6308998, a: 0.05490196}
+    - _EmissionColor: {r: 0.0010234982, g: 0.14587308, b: 0.21698111, a: 1}
