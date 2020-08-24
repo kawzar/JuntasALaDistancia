@@ -31,6 +31,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &573060617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4676633512896893465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8b8a95d8335484587b035362cf394b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathCreator: {fileID: 0}
+  endOfPathInstruction: 2
+  speed: 10
 --- !u!1001 &2250765706801426177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,10 +116,61 @@ PrefabInstance:
     - target: {fileID: 6907094777358957848, guid: 90a01f78d2adf904b8772b6973a868b2,
         type: 3}
       propertyPath: m_Name
-      value: Model
+      value: Suhail Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907094777358957853, guid: 90a01f78d2adf904b8772b6973a868b2,
+        type: 3}
+      propertyPath: m_Mass
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907094777358957853, guid: 90a01f78d2adf904b8772b6973a868b2,
+        type: 3}
+      propertyPath: m_Drag
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907094777358957853, guid: 90a01f78d2adf904b8772b6973a868b2,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907094777358957853, guid: 90a01f78d2adf904b8772b6973a868b2,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907094777358957853, guid: 90a01f78d2adf904b8772b6973a868b2,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907094777358957853, guid: 90a01f78d2adf904b8772b6973a868b2,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907094777358957854, guid: 90a01f78d2adf904b8772b6973a868b2,
+        type: 3}
+      propertyPath: jumpForce
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907094777358957855, guid: 90a01f78d2adf904b8772b6973a868b2,
+        type: 3}
+      propertyPath: actionKey
+      value: 119
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907094777358957855, guid: 90a01f78d2adf904b8772b6973a868b2,
+        type: 3}
+      propertyPath: specialKey
+      value: 32
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90a01f78d2adf904b8772b6973a868b2, type: 3}
+--- !u!1 &4676633512896893465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6907094777358957848, guid: 90a01f78d2adf904b8772b6973a868b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2250765706801426177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4676633512896893456 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6907094777358957841, guid: 90a01f78d2adf904b8772b6973a868b2,

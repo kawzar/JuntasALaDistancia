@@ -6,7 +6,8 @@ using UnityEngine;
 public enum PlayerActionType
 {
     Jump,
-    DestroyObject
+    Crouch,
+    Special
 }
 
 public class Player : MonoBehaviour
@@ -15,13 +16,7 @@ public class Player : MonoBehaviour
     private PlayerActionType playerActionType;
 
     [SerializeField]
-    private bool isActive;
-
-    [SerializeField]
     private float jumpForce;
-
-    [SerializeField]
-    private float moveSpeed;
 
     private PlayerInput playerInput;
     private Rigidbody body;
@@ -31,51 +26,48 @@ public class Player : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         body = GetComponent<Rigidbody>();
 
-        playerInput.SwitchPlayerKeyPressed += OnSwitchPlayerKeyPressed;
         playerInput.ActionKeyPressed += OnActionKeyPressed;
-    }
-
-    private void Update()
-    {
-        if (isActive)
-        {
-            Move();
-        }
+        playerInput.SpecialKeyPressed += OnSpecialActionKeyPressed;
     }
 
     private void OnActionKeyPressed()
     {
-        if (!isActive) return;
-
         switch (playerActionType)
         {
             case PlayerActionType.Jump:
                 Jump();
                 break;
-            case PlayerActionType.DestroyObject:
+            case PlayerActionType.Crouch:
+                Crouch();
                 break;
         }
     }
 
-    private void OnSwitchPlayerKeyPressed()
+    private void OnSpecialActionKeyPressed()
     {
-        isActive = !isActive;
+        Special();
     }
 
     private void Jump()
     {
+        body.AddForce(jumpForce * Vector3.up);
     }
 
-    private void Move()
+    private void Crouch()
     {
-        float positionX = transform.position.x + playerInput.Horizontal * moveSpeed * Time.deltaTime;
-        float positionZ = transform.position.z + playerInput.Vertical * moveSpeed * Time.deltaTime;
-        transform.position = new Vector3(positionX, transform.position.y, positionZ);
+        // TODO: implement with animator (collider shrinks)
+        Debug.Log("Crouch");
+    }
+
+    private void Special()
+    {
+        // TODO
+        Debug.Log("Special Key Pressed");
     }
 
     private void OnDestroy()
     {
-        playerInput.SwitchPlayerKeyPressed -= OnSwitchPlayerKeyPressed;
         playerInput.ActionKeyPressed -= OnActionKeyPressed;
+        playerInput.SpecialKeyPressed -= OnSpecialActionKeyPressed;
     }
 }

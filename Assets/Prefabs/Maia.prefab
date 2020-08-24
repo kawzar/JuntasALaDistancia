@@ -31,6 +31,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &900725394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7544077267281943339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8b8a95d8335484587b035362cf394b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathCreator: {fileID: 0}
+  endOfPathInstruction: 2
+  speed: 10
 --- !u!1001 &1031343353060357185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41,7 +56,7 @@ PrefabInstance:
     - target: {fileID: 7413456176713559914, guid: 4af96aeed67a60341a8d5727ad6c4791,
         type: 3}
       propertyPath: m_Name
-      value: Model
+      value: Maia Model
       objectReference: {fileID: 0}
     - target: {fileID: 7413456176713559916, guid: 4af96aeed67a60341a8d5727ad6c4791,
         type: 3}
@@ -103,8 +118,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7413456176713559920, guid: 4af96aeed67a60341a8d5727ad6c4791,
+        type: 3}
+      propertyPath: playerActionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413456176713559920, guid: 4af96aeed67a60341a8d5727ad6c4791,
+        type: 3}
+      propertyPath: jumpForce
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413456176713559921, guid: 4af96aeed67a60341a8d5727ad6c4791,
+        type: 3}
+      propertyPath: actionKey
+      value: 274
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413456176713559921, guid: 4af96aeed67a60341a8d5727ad6c4791,
+        type: 3}
+      propertyPath: specialKey
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413456176713559923, guid: 4af96aeed67a60341a8d5727ad6c4791,
+        type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413456176713559923, guid: 4af96aeed67a60341a8d5727ad6c4791,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7413456176713559923, guid: 4af96aeed67a60341a8d5727ad6c4791,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4af96aeed67a60341a8d5727ad6c4791, type: 3}
+--- !u!1 &7544077267281943339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7413456176713559914, guid: 4af96aeed67a60341a8d5727ad6c4791,
+    type: 3}
+  m_PrefabInstance: {fileID: 1031343353060357185}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7544077267281943343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7413456176713559918, guid: 4af96aeed67a60341a8d5727ad6c4791,
