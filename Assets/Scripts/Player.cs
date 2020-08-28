@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.AI;
+using Assets.MultiAudioListener;
 
 public enum PlayerActionType
 {
@@ -16,9 +17,14 @@ public class Player : MonoBehaviour
 {
     public event Action PlayerLost;
 
+    [Header("This Player")]
     [SerializeField]
     private PlayerActionType playerActionType;
 
+    [SerializeField]
+    private Path path;
+
+    [Header("General Settings")]
     [SerializeField]
     private float jumpForce;
 
@@ -28,8 +34,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float rotationDuration = 0.025f;
 
-    [SerializeField]
-    private Path path;
 
     [SerializeField]
     private LayerMask floorLayerMask;
@@ -37,16 +41,22 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float maxDistanceToGround = 0.25f;
 
+    [Header("Audio Settings")]
+    [SerializeField]
+    private AudioClip jumpSound;
+
     private PlayerInput playerInput;
     private Rigidbody body;
     private bool isGrounded = true;
     private bool isActive = true;
+    private MultiAudioSource audioSource;
 
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         body = GetComponent<Rigidbody>();
+        audioSource = GetComponent<MultiAudioSource>();
         SetCurrentWaypoint(path.NextWaypoint().transform);
         playerInput.ActionKeyPressed += OnActionKeyPressed;
         playerInput.SpecialKeyPressed += OnSpecialActionKeyPressed;
@@ -110,6 +120,8 @@ public class Player : MonoBehaviour
     {
         if (isGrounded)
         {
+            audioSource.AudioClip = jumpSound;
+            audioSource.Play();
             body.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
         }
     }
