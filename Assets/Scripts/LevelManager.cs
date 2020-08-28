@@ -27,12 +27,18 @@ public class LevelManager : MonoBehaviour
 
     private void PlayerLost()
     {
-        // TODO : show screen or smth
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        suhail.DisablePlayer();
+        //maia.DisablePlayer();
+        UIManager.Instance.DisplayGameOverScreen(true);
     }
 
     private void OnDestroy()
     {
         suhail.PlayerLost -= PlayerLost;
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

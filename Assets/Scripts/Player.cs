@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     private PlayerInput playerInput;
     private Rigidbody body;
     private bool isGrounded = true;
-    private Transform currentWaypoint;
+    private bool isActive = true;
 
 
     private void Awake()
@@ -54,6 +54,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (!isActive)
+        {
+            body.Sleep();
+            return;
+        }
+
         transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime, Space.Self);
 
         Ray feetRay = new Ray(gameObject.transform.position, Vector3.down);
@@ -90,6 +96,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        // TODO: Handle collision for maia
+    }
+
     private void OnSpecialActionKeyPressed()
     {
         Special();
@@ -117,7 +128,6 @@ public class Player : MonoBehaviour
 
     private void SetCurrentWaypoint(Transform waypoint)
     {
-        currentWaypoint = waypoint.transform;
         transform.DOLookAt(waypoint.transform.position, rotationDuration, AxisConstraint.Y);
     }
 
@@ -125,5 +135,10 @@ public class Player : MonoBehaviour
     {
         playerInput.ActionKeyPressed -= OnActionKeyPressed;
         playerInput.SpecialKeyPressed -= OnSpecialActionKeyPressed;
+    }
+
+    public void DisablePlayer()
+    {
+        isActive = false;
     }
 }
