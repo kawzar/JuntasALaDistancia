@@ -108,7 +108,11 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // TODO: Handle collision for maia
+        // TODO: Handle collision for maia (and for both if we keep "special" ability)
+        if (playerActionType == PlayerActionType.Crouch && collision.gameObject.tag == "MaiaObstacle")
+        {
+            PlayerLost?.Invoke();
+        }
     }
 
     private void OnSpecialActionKeyPressed()
