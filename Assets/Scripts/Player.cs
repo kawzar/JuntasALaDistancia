@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private float movementSpeed;
 
     [SerializeField]
-    private float rotationSpeed = 0.25f;
+    private float rotationDuration = 0.025f;
 
     [SerializeField]
     private Path path;
@@ -39,26 +39,25 @@ public class Player : MonoBehaviour
 
     private PlayerInput playerInput;
     private Rigidbody body;
-    private Vector3 currentDirection;
     private bool isGrounded = true;
+    private Transform currentWaypoint;
+
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         body = GetComponent<Rigidbody>();
-        SetCurrentDirection(path.NextWaypoint().transform);
+        SetCurrentWaypoint(path.NextWaypoint().transform);
         playerInput.ActionKeyPressed += OnActionKeyPressed;
         playerInput.SpecialKeyPressed += OnSpecialActionKeyPressed;
     }
 
     private void Update()
     {
-        //Vector3 deltaPosition = transform.forward * movementSpeed * Time.deltaTime;
         transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime, Space.Self);
 
         Ray feetRay = new Ray(gameObject.transform.position, Vector3.down);
         isGrounded = Physics.Raycast(feetRay, maxDistanceToGround, floorLayerMask);
-
 
         if (playerActionType == PlayerActionType.Jump && transform.position.y <= LevelManager.Instance.LowestPlayerPositionY)
         {
@@ -83,7 +82,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == path.PathTag)
         {
-            SetCurrentDirection(path.NextWaypoint().transform);
+            SetCurrentWaypoint(path.NextWaypoint().transform);
         }
         else
         {
@@ -116,25 +115,15 @@ public class Player : MonoBehaviour
         Debug.Log("Special Key Pressed");
     }
 
-    private void SetCurrentDirection(Transform waypoint)
+    private void SetCurrentWaypoint(Transform waypoint)
     {
-        //Debug.Log("Update direction " + waypoint.gameObject.name);
-        currentDirection = waypoint.transform.position - transform.position;
-        currentDirection = currentDirection.normalized;
-        transform.forward = waypoint.transform.forward;
-        //transform.DOLookAt(waypoint.transform.position, rotationSpeed);
-        //transform.LookAt(waypoint.transform);
+        currentWaypoint = waypoint.transform;
+        transform.DOLookAt(waypoint.transform.position, rotationDuration, AxisConstraint.Y);
     }
 
     private void OnDestroy()
     {
         playerInput.ActionKeyPressed -= OnActionKeyPressed;
         playerInput.SpecialKeyPressed -= OnSpecialActionKeyPressed;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawRay(transform.position, currentDirection);
     }
 }

@@ -136,12 +136,12 @@ PrefabInstance:
     - target: {fileID: 6907094777358957854, guid: 90a01f78d2adf904b8772b6973a868b2,
         type: 3}
       propertyPath: jumpForce
-      value: 1000
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6907094777358957854, guid: 90a01f78d2adf904b8772b6973a868b2,
         type: 3}
       propertyPath: movementSpeed
-      value: 30
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6907094777358957854, guid: 90a01f78d2adf904b8772b6973a868b2,
         type: 3}
@@ -151,6 +151,11 @@ PrefabInstance:
     - target: {fileID: 6907094777358957854, guid: 90a01f78d2adf904b8772b6973a868b2,
         type: 3}
       propertyPath: maxDistanceToGround
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907094777358957854, guid: 90a01f78d2adf904b8772b6973a868b2,
+        type: 3}
+      propertyPath: rotationDuration
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6907094777358957855, guid: 90a01f78d2adf904b8772b6973a868b2,
