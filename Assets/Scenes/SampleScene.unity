@@ -5541,7 +5541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c7c6cbde48b07224da9b58270fbcadc4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -40.541
+      value: -41.41
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c7c6cbde48b07224da9b58270fbcadc4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5549,7 +5549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c7c6cbde48b07224da9b58270fbcadc4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 22.33
+      value: 20.69
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c7c6cbde48b07224da9b58270fbcadc4, type: 3}
       propertyPath: m_LocalRotation.x
@@ -6279,6 +6279,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 941575700, guid: 890d803717adcfc4e9cc6b7620f6b199, type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: -0.005946748
+      objectReference: {fileID: 0}
     - target: {fileID: 1031343353109334835, guid: 890d803717adcfc4e9cc6b7620f6b199,
         type: 3}
       propertyPath: m_LocalPosition.x
