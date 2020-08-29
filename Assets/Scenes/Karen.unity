@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad3dce45d10b9fb488764faf341280d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Original: {fileID: 723245027}
+  Original: {fileID: 0}
   FormaDeseada: {fileID: 1806087198}
   CopiaDelOriginal: {fileID: 1367161587}
 --- !u!136 &723245033
