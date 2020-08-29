@@ -24,6 +24,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Path path;
 
+    [Header("Maia Animation")]
+    [SerializeField]
+    private GameObject idleBody;
+
+    [SerializeField]
+    private GameObject animationBody;
+
+    [SerializeField]
+    private GameObject playerReference;
+
     [Header("General Settings")]
     [SerializeField]
     private float jumpForce;
@@ -50,6 +60,12 @@ public class Player : MonoBehaviour
     private bool isGrounded = true;
     private bool isActive = true;
     private MultiAudioSource audioSource;
+    private Animator animator;
+    private MeshFilter idleMeshFilter;
+    private MeshFilter animationMeshFilter;
+    private CapsuleCollider idleCapsuleCollider;
+    private CapsuleCollider animationCapsuleCollider;
+    //private MeshFilter myMeshFilter;
 
 
     private void Awake()
@@ -60,6 +76,18 @@ public class Player : MonoBehaviour
         SetCurrentWaypoint(path.NextWaypoint().transform);
         playerInput.ActionKeyPressed += OnActionKeyPressed;
         playerInput.SpecialKeyPressed += OnSpecialActionKeyPressed;
+        // myMeshFilter = GetComponent<MeshFilter>();
+        // myMeshFilter.mesh.MarkDynamic();
+
+
+        if (playerActionType == PlayerActionType.Crouch)
+        {
+            animator = GetComponent<Animator>();
+            idleMeshFilter = idleBody.GetComponent<MeshFilter>();
+            idleCapsuleCollider = idleBody.GetComponent<CapsuleCollider>();
+            animationMeshFilter = animationBody.GetComponent<MeshFilter>();
+            animationCapsuleCollider = animationBody.GetComponent<CapsuleCollider>();
+        }
     }
 
     private void Update()
@@ -132,8 +160,7 @@ public class Player : MonoBehaviour
 
     private void Crouch()
     {
-        // TODO: implement with animator (collider shrinks)
-        Debug.Log("Crouch");
+        animator.SetTrigger("Crouch");
     }
 
     private void Special()
@@ -157,4 +184,23 @@ public class Player : MonoBehaviour
     {
         isActive = false;
     }
+
+    public void CrouchAnimation()
+    {
+
+        playerReference.GetComponent<MeshFilter>().mesh.MarkDynamic();
+        playerReference.GetComponent<MeshFilter>().mesh = animationMeshFilter.sharedMesh;
+        playerReference.GetComponent<CapsuleCollider>().height = animationCapsuleCollider.height;
+        playerReference.GetComponent<CapsuleCollider>().center = animationCapsuleCollider.center;
+
+    }
+
+    public void ResetAnimation()
+    {
+        playerReference.GetComponent<MeshFilter>().mesh.MarkDynamic();
+        playerReference.GetComponent<MeshFilter>().mesh = idleMeshFilter.sharedMesh;
+        playerReference.GetComponent<CapsuleCollider>().height = idleCapsuleCollider.height;
+        playerReference.GetComponent<CapsuleCollider>().center = idleCapsuleCollider.center;
+    }
+
 }
