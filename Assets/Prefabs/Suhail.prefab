@@ -31,20 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &4585623937737325832
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2250765707911277983}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.005842698
-  m_Height: 0.026012452
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.005, z: -0.0031096598}
 --- !u!183 &4585623937737325828
 Cloth:
   m_ObjectHideFlags: 0
@@ -2730,7 +2716,7 @@ Cloth:
   - maxDistance: 0
     collisionSphereDistance: 3.4028235e+38
   m_CapsuleColliders:
-  - {fileID: 0}
+  - {fileID: 4676633512896893469}
   m_SphereColliders: []
   m_SelfCollisionDistance: 0.001
   m_SelfCollisionStiffness: 0.8
@@ -2796,6 +2782,20 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00050854683, y: 0.0054309666, z: -0.00594675}
     m_Extent: {x: 0.021586535, y: 0.017092057, z: 0.005044456}
   m_DirtyAABB: 0
+--- !u!136 &4585623937737325832
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2250765707911277983}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.005842698
+  m_Height: 0.026012452
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.005, z: -0.0031096598}
 --- !u!114 &2250765706233749387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2911,7 +2911,7 @@ PrefabInstance:
     - target: {fileID: 6907094777358957848, guid: 90a01f78d2adf904b8772b6973a868b2,
         type: 3}
       propertyPath: m_Name
-      value: Suhail Model
+      value: Suhail Player
       objectReference: {fileID: 0}
     - target: {fileID: 6907094777358957852, guid: 90a01f78d2adf904b8772b6973a868b2,
         type: 3}
@@ -3019,6 +3019,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2250765706801426177}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &4676633512896893469 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 6907094777358957852, guid: 90a01f78d2adf904b8772b6973a868b2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2250765706801426177}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2250765707911310141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3032,7 +3038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100026, guid: 84aec6b3e7f48a545bc884b80cfa7c1c, type: 3}
       propertyPath: m_Name
-      value: PERSONAJE1
+      value: Maia 3D Object
       objectReference: {fileID: 0}
     - target: {fileID: 400026, guid: 84aec6b3e7f48a545bc884b80cfa7c1c, type: 3}
       propertyPath: m_LocalPosition.x

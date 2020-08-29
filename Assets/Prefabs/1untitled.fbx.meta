@@ -1,19 +1,24 @@
 fileFormatVersion: 2
-guid: 2de84d79f073b40449507f601c9b84d2
+guid: b066dc4f47499434b96e59bf2d07ce61
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: CABEZA.001
+    100002: Broche
+    100004: CAPITA
     400000: //RootNode
-    400002: CABEZA.001
-    2100000: Material.006
-    2100002: Material.009
-    2300000: //RootNode
-    2300002: CABEZA.001
-    3300000: //RootNode
-    3300002: CABEZA.001
-    4300000: CABEZA.001
+    400002: Broche
+    400004: CAPITA
+    2100000: Material.002
+    2100002: Material.004
+    2100004: Material.005
+    2100006: Material.003
+    2300000: Broche
+    2300002: CAPITA
+    3300000: Broche
+    3300002: CAPITA
+    4300000: CAPITA
+    4300002: Broche
     2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
