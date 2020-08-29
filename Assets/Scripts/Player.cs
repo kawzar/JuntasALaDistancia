@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using UnityEngine.AI;
+using Assets.MultiAudioListener;
 
 public enum PlayerActionType
 {
@@ -12,22 +15,70 @@ public enum PlayerActionType
 
 public class Player : MonoBehaviour
 {
+    public event Action PlayerLost;
+
+    [Header("This Player")]
     [SerializeField]
     private PlayerActionType playerActionType;
 
     [SerializeField]
+    private Path path;
+
+    [Header("General Settings")]
+    [SerializeField]
     private float jumpForce;
+
+    [SerializeField]
+    private float movementSpeed;
+
+    [SerializeField]
+    private float rotationDuration = 0.025f;
+
+
+    [SerializeField]
+    private LayerMask floorLayerMask;
+
+    [SerializeField]
+    private float maxDistanceToGround = 0.25f;
+
+    [Header("Audio Settings")]
+    [SerializeField]
+    private AudioClip jumpSound;
 
     private PlayerInput playerInput;
     private Rigidbody body;
+    private bool isGrounded = true;
+    private bool isActive = true;
+    private MultiAudioSource audioSource;
+
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         body = GetComponent<Rigidbody>();
-
+        audioSource = GetComponent<MultiAudioSource>();
+        SetCurrentWaypoint(path.NextWaypoint().transform);
         playerInput.ActionKeyPressed += OnActionKeyPressed;
         playerInput.SpecialKeyPressed += OnSpecialActionKeyPressed;
+    }
+
+    private void Update()
+    {
+        if (!isActive)
+        {
+            body.Sleep();
+            return;
+        }
+
+        transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime, Space.Self);
+
+        Ray feetRay = new Ray(gameObject.transform.position, Vector3.down);
+        isGrounded = Physics.Raycast(feetRay, maxDistanceToGround, floorLayerMask);
+
+        if (playerActionType == PlayerActionType.Jump && transform.position.y <= LevelManager.Instance.LowestPlayerPositionY)
+        {
+            PlayerLost?.Invoke();
+        }
     }
 
     private void OnActionKeyPressed()
@@ -43,6 +94,27 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == path.PathTag)
+        {
+            SetCurrentWaypoint(path.NextWaypoint().transform);
+        }
+        else
+        {
+            Debug.Log(other.gameObject.name);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // TODO: Handle collision for maia (and for both if we keep "special" ability)
+        if (playerActionType == PlayerActionType.Crouch && collision.gameObject.tag == "MaiaObstacle")
+        {
+            PlayerLost?.Invoke();
+        }
+    }
+
     private void OnSpecialActionKeyPressed()
     {
         Special();
@@ -50,7 +122,12 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        body.AddForce(jumpForce * Vector3.up);
+        if (isGrounded)
+        {
+            audioSource.AudioClip = jumpSound;
+            audioSource.Play();
+            body.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
+        }
     }
 
     private void Crouch()
@@ -65,9 +142,19 @@ public class Player : MonoBehaviour
         Debug.Log("Special Key Pressed");
     }
 
+    private void SetCurrentWaypoint(Transform waypoint)
+    {
+        transform.DOLookAt(waypoint.transform.position, rotationDuration, AxisConstraint.Y);
+    }
+
     private void OnDestroy()
     {
         playerInput.ActionKeyPressed -= OnActionKeyPressed;
         playerInput.SpecialKeyPressed -= OnSpecialActionKeyPressed;
+    }
+
+    public void DisablePlayer()
+    {
+        isActive = false;
     }
 }
