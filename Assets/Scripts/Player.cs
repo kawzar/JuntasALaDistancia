@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.AI;
 using Assets.MultiAudioListener;
+using UnityEngine.XR.WSA.Input;
 
 public enum PlayerActionType
 {
@@ -21,18 +22,22 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerActionType playerActionType;
 
-    [SerializeField]
-    private Path path;
+    [Header("Maia Settings")]
+    // TODO: Uncomment to implement crouch
+    //[SerializeField]
+    //private GameObject idleBody;
 
-    [Header("Maia Animation")]
-    [SerializeField]
-    private GameObject idleBody;
+    //[SerializeField]
+    //private GameObject animationBody;
+
+    //[SerializeField]
+    //private GameObject playerReference;
 
     [SerializeField]
-    private GameObject animationBody;
+    private string crouchAnimationTriggerName = "Crouch";
 
     [SerializeField]
-    private GameObject playerReference;
+    private string maiaCollisionTag = "MaiaObstacle";
 
     [Header("General Settings")]
     [SerializeField]
@@ -40,10 +45,6 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float movementSpeed;
-
-    [SerializeField]
-    private float rotationDuration = 0.025f;
-
 
     [SerializeField]
     private LayerMask floorLayerMask;
@@ -60,34 +61,30 @@ public class Player : MonoBehaviour
     private bool isGrounded = true;
     private bool isActive = true;
     private MultiAudioSource audioSource;
-    private Animator animator;
-    private MeshFilter idleMeshFilter;
-    private MeshFilter animationMeshFilter;
-    private CapsuleCollider idleCapsuleCollider;
-    private CapsuleCollider animationCapsuleCollider;
-    //private MeshFilter myMeshFilter;
 
+    // TODO: Uncomment to implement crouch
+    //private Animator animator;
+    //private MeshFilter idleMeshFilter;
+    //private MeshFilter animationMeshFilter;
+    //private CapsuleCollider idleCapsuleCollider;
+    //private CapsuleCollider animationCapsuleCollider;
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         body = GetComponent<Rigidbody>();
         audioSource = GetComponent<MultiAudioSource>();
-        SetCurrentWaypoint(path.NextWaypoint().transform);
         playerInput.ActionKeyPressed += OnActionKeyPressed;
-        playerInput.SpecialKeyPressed += OnSpecialActionKeyPressed;
-        // myMeshFilter = GetComponent<MeshFilter>();
-        // myMeshFilter.mesh.MarkDynamic();
 
-
-        if (playerActionType == PlayerActionType.Crouch)
-        {
-            animator = GetComponent<Animator>();
-            idleMeshFilter = idleBody.GetComponent<MeshFilter>();
-            idleCapsuleCollider = idleBody.GetComponent<CapsuleCollider>();
-            animationMeshFilter = animationBody.GetComponent<MeshFilter>();
-            animationCapsuleCollider = animationBody.GetComponent<CapsuleCollider>();
-        }
+        // TODO: Uncomment to implement crouch
+        //if (playerActionType == PlayerActionType.Crouch)
+        //{
+        //    animator = GetComponent<Animator>();
+        //    idleMeshFilter = idleBody.GetComponent<MeshFilter>();
+        //    idleCapsuleCollider = idleBody.GetComponent<CapsuleCollider>();
+        //    animationMeshFilter = animationBody.GetComponent<MeshFilter>();
+        //    animationCapsuleCollider = animationBody.GetComponent<CapsuleCollider>();
+        //}
     }
 
     private void Update()
@@ -98,10 +95,19 @@ public class Player : MonoBehaviour
             return;
         }
 
-        transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime, Space.Self);
+        Vector3 pos = transform.position;
+        pos += transform.forward * Time.deltaTime * movementSpeed;
+        transform.position = pos;
 
         Ray feetRay = new Ray(gameObject.transform.position, Vector3.down);
-        isGrounded = Physics.Raycast(feetRay, maxDistanceToGround, floorLayerMask);
+        RaycastHit hit;
+        isGrounded = Physics.Raycast(feetRay, out hit, maxDistanceToGround, floorLayerMask);
+
+        if (isGrounded)
+        {
+            transform.forward = -hit.collider.transform.right; // weird due to floor nature
+            Debug.DrawRay(transform.position, transform.forward);
+        }
 
         if (playerActionType == PlayerActionType.Jump && transform.position.y <= LevelManager.Instance.LowestPlayerPositionY)
         {
@@ -122,30 +128,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == path.PathTag)
-        {
-            SetCurrentWaypoint(path.NextWaypoint().transform);
-        }
-        else
-        {
-            Debug.Log(other.gameObject.name);
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-        // TODO: Handle collision for maia (and for both if we keep "special" ability)
-        if (playerActionType == PlayerActionType.Crouch && collision.gameObject.tag == "MaiaObstacle")
+        if (playerActionType == PlayerActionType.Crouch && collision.gameObject.tag == maiaCollisionTag)
         {
             PlayerLost?.Invoke();
         }
-    }
-
-    private void OnSpecialActionKeyPressed()
-    {
-        Special();
     }
 
     private void Jump()
@@ -160,24 +148,14 @@ public class Player : MonoBehaviour
 
     private void Crouch()
     {
-        animator.SetTrigger("Crouch");
+        // TODO: Uncomment to implement crouch
+        //animator.SetTrigger(crouchAnimationTriggerName);
     }
 
-    private void Special()
-    {
-        // TODO
-        Debug.Log("Special Key Pressed");
-    }
-
-    private void SetCurrentWaypoint(Transform waypoint)
-    {
-        transform.DOLookAt(waypoint.transform.position, rotationDuration, AxisConstraint.Y);
-    }
 
     private void OnDestroy()
     {
         playerInput.ActionKeyPressed -= OnActionKeyPressed;
-        playerInput.SpecialKeyPressed -= OnSpecialActionKeyPressed;
     }
 
     public void DisablePlayer()
@@ -187,20 +165,23 @@ public class Player : MonoBehaviour
 
     public void CrouchAnimation()
     {
-
-        playerReference.GetComponent<MeshFilter>().mesh.MarkDynamic();
-        playerReference.GetComponent<MeshFilter>().mesh = animationMeshFilter.sharedMesh;
-        playerReference.GetComponent<CapsuleCollider>().height = animationCapsuleCollider.height;
-        playerReference.GetComponent<CapsuleCollider>().center = animationCapsuleCollider.center;
+        // TODO: check animation
+        //// TODO: Uncomment to implement crouch
+        //playerReference.GetComponent<MeshFilter>().mesh.MarkDynamic();
+        //playerReference.GetComponent<MeshFilter>().mesh = animationMeshFilter.sharedMesh;
+        //playerReference.GetComponent<CapsuleCollider>().height = animationCapsuleCollider.height;
+        //playerReference.GetComponent<CapsuleCollider>().center = animationCapsuleCollider.center;
 
     }
 
     public void ResetAnimation()
     {
-        playerReference.GetComponent<MeshFilter>().mesh.MarkDynamic();
-        playerReference.GetComponent<MeshFilter>().mesh = idleMeshFilter.sharedMesh;
-        playerReference.GetComponent<CapsuleCollider>().height = idleCapsuleCollider.height;
-        playerReference.GetComponent<CapsuleCollider>().center = idleCapsuleCollider.center;
+        // TODO: check animation
+        //// TODO: Uncomment to implement crouch
+        //playerReference.GetComponent<MeshFilter>().mesh.MarkDynamic();
+        //playerReference.GetComponent<MeshFilter>().mesh = idleMeshFilter.sharedMesh;
+        //playerReference.GetComponent<CapsuleCollider>().height = idleCapsuleCollider.height;
+        //playerReference.GetComponent<CapsuleCollider>().center = idleCapsuleCollider.center;
     }
 
 }
