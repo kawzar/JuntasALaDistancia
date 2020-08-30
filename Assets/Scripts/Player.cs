@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerActionType playerActionType;
 
+    [SerializeField]
+    private ParticleSystem particleSystem;
+
     [Header("Maia Settings")]
     // TODO: Uncomment to implement crouch
     //[SerializeField]
@@ -117,6 +120,11 @@ public class Player : MonoBehaviour
 
     private void OnActionKeyPressed()
     {
+        if(particleSystem != null)
+        {
+            particleSystem.Play();
+        }
+
         switch (playerActionType)
         {
             case PlayerActionType.Jump:
