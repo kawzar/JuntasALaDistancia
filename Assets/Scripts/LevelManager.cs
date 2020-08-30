@@ -43,6 +43,11 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        MusicManager.Instance.PlayMainLoop();
+    }
+
     private void PlayerLost()
     {
         suhail.DisablePlayer();
