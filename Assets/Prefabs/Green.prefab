@@ -124,9 +124,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerActionType: 0
-  isActive: 0
+  path: {fileID: 0}
   jumpForce: 3000
-  moveSpeed: 25
+  movementSpeed: 0
+  rotationDuration: 0.025
+  floorLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  maxDistanceToGround: 0.25
+  jumpSound: {fileID: 0}
 --- !u!114 &6907094777358957855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,4 +146,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionKey: 101
-  switchPlayerKey: 9
+  specialKey: 0
