@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour
     {
         Instance = this;
         suhail.PlayerLost += PlayerLost;
+        maia.PlayerLost += PlayerLost;
     }
 
     private void PlayerLost()
@@ -35,6 +36,7 @@ public class LevelManager : MonoBehaviour
     private void OnDestroy()
     {
         suhail.PlayerLost -= PlayerLost;
+        maia.PlayerLost -= PlayerLost;
     }
 
     public void RestartLevel()

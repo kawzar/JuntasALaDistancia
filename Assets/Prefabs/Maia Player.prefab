@@ -66,7 +66,7 @@ MonoBehaviour:
   crouchAnimationTriggerName: Crouch
   maiaCollisionTag: MaiaObstacle
   jumpForce: 0
-  movementSpeed: 0.25
+  movementSpeed: 1.5
   floorLayerMask:
     serializedVersion: 2
     m_Bits: 4096
@@ -95,7 +95,7 @@ PrefabInstance:
     - target: {fileID: 244320248798674766, guid: 6cf0a0507dffd3845bd41846b7f4e3e1,
         type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: -0.0005085743
+      value: -0.0005085757
       objectReference: {fileID: 0}
     - target: {fileID: 244320248798674766, guid: 6cf0a0507dffd3845bd41846b7f4e3e1,
         type: 3}
@@ -105,7 +105,7 @@ PrefabInstance:
     - target: {fileID: 244320248798674766, guid: 6cf0a0507dffd3845bd41846b7f4e3e1,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.0059467554
+      value: -0.0059467563
       objectReference: {fileID: 0}
     - target: {fileID: 244320248798674766, guid: 6cf0a0507dffd3845bd41846b7f4e3e1,
         type: 3}
