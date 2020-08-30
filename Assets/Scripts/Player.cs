@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
     private PlayerInput playerInput;
     private Rigidbody body;
     private bool isGrounded = true;
-    private bool isActive = true;
+    private bool isActive = false;
     private MultiAudioSource audioSource;
 
     // TODO: Uncomment to implement crouch
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
 
     private void OnActionKeyPressed()
     {
-        if(particleSystem != null)
+        if (particleSystem != null)
         {
             particleSystem.Play();
         }
@@ -166,9 +166,9 @@ public class Player : MonoBehaviour
         playerInput.ActionKeyPressed -= OnActionKeyPressed;
     }
 
-    public void DisablePlayer()
+    public void ToggleEnabled()
     {
-        isActive = false;
+        isActive = !isActive;
     }
 
     public void CrouchAnimation()

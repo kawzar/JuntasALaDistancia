@@ -46,12 +46,13 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         MusicManager.Instance.PlayMainLoop();
+        UIManager.Instance.StartCountdown();
     }
 
     private void PlayerLost()
     {
-        suhail.DisablePlayer();
-        maia.DisablePlayer();
+        suhail.ToggleEnabled();
+        maia.ToggleEnabled();
         SetCameraNoise(shake: true);
         StartCoroutine(this.DisplayGameOverScreenCO());
     }
@@ -60,11 +61,6 @@ public class LevelManager : MonoBehaviour
     {
         suhail.PlayerLost -= PlayerLost;
         maia.PlayerLost -= PlayerLost;
-    }
-
-    public void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private IEnumerator DisplayGameOverScreenCO()
@@ -82,5 +78,11 @@ public class LevelManager : MonoBehaviour
             noise.m_AmplitudeGain = shake ? noiseAmplitude : 0;
             noise.m_FrequencyGain = shake ? noiseFrequency : 0;
         }
+    }
+
+    public void StartLevel()
+    {
+        suhail.ToggleEnabled();
+        maia.ToggleEnabled();
     }
 }
