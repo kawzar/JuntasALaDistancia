@@ -4,6 +4,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private CanvasGroup gameOverCanvas;
+
+    [SerializeField]
+    private Image gameOverBlackTransition;
 
     [SerializeField]
     private CanvasGroup mainMenuCanvas;
@@ -50,14 +54,19 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            gameOverCanvas.DOFade(0, fadeDuration).OnComplete(() => gameOverCanvas.gameObject.SetActive(false));
+            Sequence fadeOutSequence = DOTween.Sequence();
+            fadeOutSequence.Append(gameOverCanvas.DOFade(0, fadeDuration));
+            fadeOutSequence.Join(gameOverBlackTransition.DOColor(Color.black, fadeDuration));
+            fadeOutSequence.OnComplete(() => gameOverCanvas.gameObject.SetActive(false));
         }
     }
 
     public void OnMenuButtonClicked()
     {
+        MusicManager.Instance.PlaySelectButtonFx();
         if (gameOverCanvas.isActiveAndEnabled)
         {
+            MusicManager.Instance.FadeOutGameMusic(fadeDuration);
             gameOverCanvas.DOFade(0, fadeDuration).OnComplete(() =>
             {
                 gameOverCanvas.gameObject.SetActive(false);
@@ -72,6 +81,8 @@ public class UIManager : MonoBehaviour
 
     public void OnRestartButtonClicked()
     {
+        MusicManager.Instance.PlaySelectButtonFx();
+        MusicManager.Instance.FadeOutGameMusic(fadeDuration);
         gameOverCanvas.DOFade(0, fadeDuration).OnComplete(() =>
         {
             gameOverCanvas.gameObject.SetActive(false);
@@ -81,6 +92,7 @@ public class UIManager : MonoBehaviour
 
     public void OnPlayButtonClicked()
     {
+        MusicManager.Instance.PlaySelectButtonFx();
         mainMenuCanvas.DOFade(0, fadeDuration).OnComplete(() =>
         {
             mainMenuCanvas.gameObject.SetActive(false);
@@ -90,6 +102,8 @@ public class UIManager : MonoBehaviour
 
     public void OnCreditsButtonClicked()
     {
+        MusicManager.Instance.PlayBackButtonFx();
+        MusicManager.Instance.FadeOutGameMusic(fadeDuration);
         mainMenuCanvas.DOFade(0, fadeDuration).OnComplete(() =>
         {
             mainMenuCanvas.gameObject.SetActive(false);
@@ -107,6 +121,8 @@ public class UIManager : MonoBehaviour
         for (int i = countdownFrom; i > 0; i--)
         {
             countdownText.SetText(i.ToString());
+            countdownText.transform.DOShakeScale(0.75f);
+            MusicManager.Instance.PlaySelectButtonFx();
             yield return new WaitForSeconds(1);
         }
 

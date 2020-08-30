@@ -53,6 +53,7 @@ public class LevelManager : MonoBehaviour
     {
         suhail.ToggleEnabled();
         maia.ToggleEnabled();
+        MusicManager.Instance.PlayGameOverFx();
         SetCameraNoise(shake: true);
         StartCoroutine(this.DisplayGameOverScreenCO());
     }
