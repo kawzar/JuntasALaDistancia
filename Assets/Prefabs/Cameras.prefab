@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6424571869353133565}
   - component: {fileID: 1945558065}
   - component: {fileID: 1465497128}
+  - component: {fileID: 1647305510}
   m_Layer: 9
   m_Name: cm
   m_TagString: Untagged
@@ -94,6 +95,23 @@ MonoBehaviour:
   m_BiasX: 0
   m_BiasY: 0.00000009031007
   m_CenterOnActivate: 1
+--- !u!114 &1647305510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424571869353133537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 117.3562, y: 922.1339, z: -137.8385}
 --- !u!1 &6424571869805692055
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +191,7 @@ GameObject:
   - component: {fileID: 6424571870252446909}
   - component: {fileID: 6424571870252446908}
   - component: {fileID: 6424571871206054354}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Maia Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -518,6 +536,7 @@ GameObject:
   - component: {fileID: 6424571871315582402}
   - component: {fileID: 6424571871315582405}
   - component: {fileID: 542191915453635874}
+  - component: {fileID: 528416927}
   m_Layer: 8
   m_Name: cm
   m_TagString: Untagged
@@ -600,3 +619,20 @@ MonoBehaviour:
     m_Bits: 0
   IgnoreTag: 
   CameraRadius: 0.2
+--- !u!114 &528416927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424571871315582406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}

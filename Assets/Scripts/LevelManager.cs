@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +18,17 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private Player maia;
 
+    [SerializeField]
+    private CinemachineVirtualCamera[] virtualCameras;
+
+    [SerializeField]
+    private float noiseAmplitude = 0.25f;
+
+    [SerializeField]
+    private float noiseFrequency = 0.25f;
+
+    private List<CinemachineBasicMultiChannelPerlin> noiseChannels = new List<CinemachineBasicMultiChannelPerlin>();
+
     public float LowestPlayerPositionY => lowestPlayerPositionY;
 
     private void Awake()
@@ -24,13 +36,19 @@ public class LevelManager : MonoBehaviour
         Instance = this;
         suhail.PlayerLost += PlayerLost;
         maia.PlayerLost += PlayerLost;
+
+        foreach (CinemachineVirtualCamera camera in virtualCameras)
+        {
+            noiseChannels.Add(camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>());
+        }
     }
 
     private void PlayerLost()
     {
         suhail.DisablePlayer();
-        //maia.DisablePlayer();
-        UIManager.Instance.DisplayGameOverScreen(true);
+        maia.DisablePlayer();
+        SetCameraNoise(shake: true);
+        StartCoroutine(this.DisplayGameOverScreenCO());
     }
 
     private void OnDestroy()
@@ -42,5 +60,22 @@ public class LevelManager : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private IEnumerator DisplayGameOverScreenCO()
+    {
+        yield return new WaitForSeconds(0.75f);
+
+        SetCameraNoise(shake: false);
+        UIManager.Instance.DisplayGameOverScreen(true);
+    }
+
+    private void SetCameraNoise(bool shake)
+    {
+        foreach (CinemachineBasicMultiChannelPerlin noise in noiseChannels)
+        {
+            noise.m_AmplitudeGain = shake ? noiseAmplitude : 0;
+            noise.m_FrequencyGain = shake ? noiseFrequency : 0;
+        }
     }
 }

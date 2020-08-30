@@ -46,3 +46,8 @@ MonoBehaviour:
   lowestPlayerPositionY: -0.25
   suhail: {fileID: 0}
   maia: {fileID: 0}
+  virtualCameras:
+  - {fileID: 0}
+  - {fileID: 0}
+  noiseAmplitude: 2
+  noiseFrequency: 20
