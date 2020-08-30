@@ -2798,6 +2798,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 351151984284412906}
+  - {fileID: 3987114601556795375}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -2844,6 +2845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerActionType: 0
+  particleSystem: {fileID: 6121501415545801544}
   crouchAnimationTriggerName: Crouch
   maiaCollisionTag: MaiaObstacle
   jumpForce: 20
@@ -3015,4 +3017,85 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100004, guid: 84aec6b3e7f48a545bc884b80cfa7c1c,
     type: 3}
   m_PrefabInstance: {fileID: 351151984284545392}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7842379021986568822
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6558759225465702493}
+    m_Modifications:
+    - target: {fileID: 668994637613527922, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_Name
+      value: Jump Particle Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.03600299
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.05299998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1899992
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.50000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.50000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4cc5dd29601683d4b8e59291643986a5, type: 3}
+--- !u!4 &3987114601556795375 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6593456429861750169, guid: 4cc5dd29601683d4b8e59291643986a5,
+    type: 3}
+  m_PrefabInstance: {fileID: 7842379021986568822}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6121501415545801544 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4046003992333160766, guid: 4cc5dd29601683d4b8e59291643986a5,
+    type: 3}
+  m_PrefabInstance: {fileID: 7842379021986568822}
   m_PrefabAsset: {fileID: 0}
