@@ -5,7 +5,6 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.AI;
 using Assets.MultiAudioListener;
-using UnityEngine.XR.WSA.Input;
 
 public enum PlayerActionType
 {
@@ -17,13 +16,14 @@ public enum PlayerActionType
 public class Player : MonoBehaviour
 {
     public event Action PlayerLost;
+    public event Action PlayerArrived;
 
     [Header("This Player")]
     [SerializeField]
     private PlayerActionType playerActionType;
 
     [SerializeField]
-    private ParticleSystem particleSystem;
+    private ParticleSystem myParticles;
 
     [Header("Maia Settings")]
     // TODO: Uncomment to implement crouch
@@ -120,9 +120,9 @@ public class Player : MonoBehaviour
 
     private void OnActionKeyPressed()
     {
-        if (particleSystem != null)
+        if (myParticles != null)
         {
-            particleSystem.Play();
+            myParticles.Play();
         }
 
         switch (playerActionType)
@@ -141,6 +141,18 @@ public class Player : MonoBehaviour
         if (playerActionType == PlayerActionType.Crouch && collision.gameObject.tag == maiaCollisionTag)
         {
             PlayerLost?.Invoke();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!isActive) return;
+
+        if (other.gameObject.tag == "Goal")
+        {
+            MusicManager.Instance.PlayVictoryFx();
+            PlayerArrived?.Invoke();
+            ToggleEnabled();
         }
     }
 

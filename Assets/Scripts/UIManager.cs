@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
@@ -23,6 +24,12 @@ public class UIManager : MonoBehaviour
     private CanvasGroup countdownCanvas;
 
     [SerializeField]
+    private CanvasGroup videoCanvas;
+
+    [SerializeField]
+    private Image blackBg;
+
+    [SerializeField]
     private TextMeshProUGUI countdownText;
 
     [SerializeField]
@@ -40,9 +47,16 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     public int gameplaySceneBuildNumber = 1;
 
+    private int nextScene;
+
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        VideoPlayerManager.Instance.VideoEnded += OnVideoEnded;
     }
 
     public void DisplayGameOverScreen(bool display)
@@ -64,9 +78,10 @@ public class UIManager : MonoBehaviour
     public void OnMenuButtonClicked()
     {
         MusicManager.Instance.PlaySelectButtonFx();
-        if (gameOverCanvas.isActiveAndEnabled)
+        MusicManager.Instance.FadeOutGameMusic(fadeDuration);
+
+        if (gameOverCanvas != null && gameOverCanvas.isActiveAndEnabled)
         {
-            MusicManager.Instance.FadeOutGameMusic(fadeDuration);
             gameOverCanvas.DOFade(0, fadeDuration).OnComplete(() =>
             {
                 gameOverCanvas.gameObject.SetActive(false);
@@ -93,10 +108,12 @@ public class UIManager : MonoBehaviour
     public void OnPlayButtonClicked()
     {
         MusicManager.Instance.PlaySelectButtonFx();
+        nextScene = gameplaySceneBuildNumber;
         mainMenuCanvas.DOFade(0, fadeDuration).OnComplete(() =>
         {
             mainMenuCanvas.gameObject.SetActive(false);
-            SceneManager.LoadScene(gameplaySceneBuildNumber);
+            videoCanvas.gameObject.SetActive(true);
+            videoCanvas.DOFade(1, fadeDuration).OnComplete(() => VideoPlayerManager.Instance.PlayStartCinematic());
         });
     }
 
@@ -104,6 +121,7 @@ public class UIManager : MonoBehaviour
     {
         MusicManager.Instance.PlayBackButtonFx();
         MusicManager.Instance.FadeOutGameMusic(fadeDuration);
+
         mainMenuCanvas.DOFade(0, fadeDuration).OnComplete(() =>
         {
             mainMenuCanvas.gameObject.SetActive(false);
@@ -111,9 +129,23 @@ public class UIManager : MonoBehaviour
         });
     }
 
+    public void OnExitButtonClicked()
+    {
+        Application.Quit();
+    }
+
     public void StartCountdown()
     {
         StartCoroutine(this.CountdownCO());
+    }
+
+    public void ShowEndingCutscene()
+    {
+        nextScene = creditsSceneBuildNumber;
+        blackBg.gameObject.SetActive(true);
+
+        videoCanvas.gameObject.SetActive(true);
+        videoCanvas.DOFade(1, fadeDuration).OnComplete(() => VideoPlayerManager.Instance.PlayEndingCinematic());
     }
 
     private IEnumerator CountdownCO()
@@ -131,5 +163,23 @@ public class UIManager : MonoBehaviour
             countdownCanvas.gameObject.SetActive(false);
             LevelManager.Instance.StartLevel();
         });
+    }
+
+    private void OnVideoEnded()
+    {
+        videoCanvas.DOFade(0, fadeDuration).OnComplete(() =>
+        {
+            videoCanvas.gameObject.SetActive(false);
+            if (blackBg != null)
+            {
+                blackBg.gameObject.SetActive(false);
+            }
+            SceneManager.LoadScene(nextScene);
+        });
+    }
+
+    private void OnDestroy()
+    {
+        VideoPlayerManager.Instance.VideoEnded -= OnVideoEnded;
     }
 }

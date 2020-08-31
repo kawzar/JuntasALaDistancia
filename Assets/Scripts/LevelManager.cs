@@ -28,6 +28,7 @@ public class LevelManager : MonoBehaviour
     private float noiseFrequency = 0.25f;
 
     private List<CinemachineBasicMultiChannelPerlin> noiseChannels = new List<CinemachineBasicMultiChannelPerlin>();
+    private int arrivedPlayers = 0;
 
     public float LowestPlayerPositionY => lowestPlayerPositionY;
 
@@ -36,6 +37,8 @@ public class LevelManager : MonoBehaviour
         Instance = this;
         suhail.PlayerLost += PlayerLost;
         maia.PlayerLost += PlayerLost;
+        suhail.PlayerArrived += PlayerArrived;
+        maia.PlayerArrived += PlayerArrived;
 
         foreach (CinemachineVirtualCamera camera in virtualCameras)
         {
@@ -58,10 +61,27 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(this.DisplayGameOverScreenCO());
     }
 
+    private void PlayerArrived()
+    {
+
+        arrivedPlayers++;
+
+        if (arrivedPlayers >= 2)
+        {
+            arrivedPlayers = -10;
+            MusicManager.Instance.FadeOutGameMusic(0.75f);
+
+            // Cinematic logic here
+            UIManager.Instance.ShowEndingCutscene();
+        }
+    }
+
     private void OnDestroy()
     {
         suhail.PlayerLost -= PlayerLost;
         maia.PlayerLost -= PlayerLost;
+        suhail.PlayerArrived -= PlayerArrived;
+        maia.PlayerArrived -= PlayerArrived;
     }
 
     private IEnumerator DisplayGameOverScreenCO()

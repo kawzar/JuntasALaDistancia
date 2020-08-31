@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SuhailPath
   - MaiaPath
+  - Goal
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Suhail Path
   - Maia Path
   - Floor
-  - 
+  - Goal
   - PostProcessing
   - 
   - 
